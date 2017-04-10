@@ -11,27 +11,27 @@ public class DataTableProcessor
       this.data = data;
    }
 
-   protected double getSumOfParams(DataPointCoefficientGetter paramGetter)
+   protected double getSumOfParams(DataPointCoefficientGetter coefficientGetter)
    {
       return data.getDataPoints().stream()
-            .map(paramGetter)
+            .map(coefficientGetter)
             .mapToDouble(Double::doubleValue)
             .sum();
    }
 
-   protected double getSumOfProductsOfParams(DataPointCoefficientGetter coeff1getter,
-                                             DataPointCoefficientGetter coeff2getter)
+   protected double getSumOfProductsOfParams(DataPointCoefficientGetter coeff1Getter,
+                                             DataPointCoefficientGetter coeff2Getter)
    {
       return data.getDataPoints().stream()
-            .map(dp -> coeff1getter.apply(dp) * coeff2getter.apply(dp))
+            .map(dp -> coeff1Getter.apply(dp) * coeff2Getter.apply(dp))
             .mapToDouble(Double::doubleValue)
             .sum();
    }
 
-   protected double getSumOfSquaredParams(DataPointCoefficientGetter paramGetter)
+   protected double getSumOfSquaredParams(DataPointCoefficientGetter coefficientGetter)
    {
       return data.getDataPoints().stream()
-            .map(dp -> Math.pow(paramGetter.apply(dp), 2))
+            .map(dp -> Math.pow(coefficientGetter.apply(dp), 2))
             .mapToDouble(Double::doubleValue)
             .sum();
    }
@@ -43,7 +43,38 @@ public class DataTableProcessor
       DataPointCoefficientGetter y = DataPoint::getY;
       DataPointCoefficientGetter z = DataPoint::getZ;
 
-      Matrix lhs = new Matrix(new double[][] {
+      Matrix lhs = buildLhsMatrix(w, x, y);
+      Matrix rhs = buildRhsMatrix(w, x, y, z);
+      Matrix solution = lhs.solve(rhs);
+
+      return new BetaResult(
+            solution.get(0),
+            solution.get(1),
+            solution.get(2),
+            solution.get(3)
+      );
+   }
+
+   protected Matrix buildRhsMatrix(DataPointCoefficientGetter w,
+                                   DataPointCoefficientGetter x,
+                                   DataPointCoefficientGetter y,
+                                   DataPointCoefficientGetter z
+   )
+   {
+      return new Matrix(new double[] {
+            getSumOfParams(z),
+            getSumOfProductsOfParams(w, z),
+            getSumOfProductsOfParams(x, z),
+            getSumOfProductsOfParams(y, z)
+      });
+   }
+
+   protected Matrix buildLhsMatrix(DataPointCoefficientGetter w,
+                                   DataPointCoefficientGetter x,
+                                   DataPointCoefficientGetter y
+   )
+   {
+      return new Matrix(new double[][] {
             {
                   data.getDataPointsCount(),
                   getSumOfParams(w),
@@ -72,21 +103,5 @@ public class DataTableProcessor
                   getSumOfSquaredParams(y)
             }
       });
-
-      Matrix rhs = new Matrix(new double[] {
-            getSumOfParams(z),
-            getSumOfProductsOfParams(w, z),
-            getSumOfProductsOfParams(x, z),
-            getSumOfProductsOfParams(y, z)
-      });
-
-      Matrix solution = lhs.solve(rhs);
-
-      return new BetaResult(
-            solution.get(0),
-            solution.get(1),
-            solution.get(2),
-            solution.get(3)
-      );
    }
 }
