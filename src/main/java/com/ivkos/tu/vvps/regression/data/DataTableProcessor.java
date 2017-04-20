@@ -1,12 +1,16 @@
 package com.ivkos.tu.vvps.regression.data;
 
+
+import com.ivkos.tu.vvps.regression.matrix.AbstractMatrixFactory;
 import com.ivkos.tu.vvps.regression.matrix.Matrix;
+import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
 
 import java.util.Objects;
 
 public class DataTableProcessor
 {
    private final DataTable data;
+   private final AbstractMatrixFactory matrixFactory = new MatrixFactory();
 
    public DataTableProcessor(DataTable data)
    {
@@ -63,7 +67,7 @@ public class DataTableProcessor
                                    DataPointCoefficientGetter z
    )
    {
-      return new Matrix(new double[] {
+      return matrixFactory.create(new double[] {
             getSumOfParams(z),
             getSumOfProductsOfParams(w, z),
             getSumOfProductsOfParams(x, z),
@@ -76,7 +80,7 @@ public class DataTableProcessor
                                    DataPointCoefficientGetter y
    )
    {
-      return new Matrix(new double[][] {
+      return matrixFactory.create(new double[][] {
             {
                   data.getDataPointsCount(),
                   getSumOfParams(w),
