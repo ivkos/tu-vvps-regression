@@ -1,24 +1,24 @@
 package com.ivkos.tu.vvps.regression.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 
-import static java.util.Collections.unmodifiableList;
+import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableCollection;
 
 public class DataTable
 {
-   private final List<DataPoint> dataPoints;
+   private final Collection<DataPoint> dataPoints;
 
    public DataTable()
    {
-      this.dataPoints = new ArrayList<>();
+      this.dataPoints = new HashSet<>();
    }
 
    public DataTable(DataPoint... dp)
    {
-      this.dataPoints = Arrays.asList(dp);
+      this.dataPoints = new HashSet<>(asList(dp));
    }
 
    public DataTable addDataPoint(DataPoint dp)
@@ -27,9 +27,9 @@ public class DataTable
       return this;
    }
 
-   public List<DataPoint> getDataPoints()
+   public Collection<DataPoint> getDataPoints()
    {
-      return unmodifiableList(dataPoints);
+      return unmodifiableCollection(dataPoints);
    }
 
    public int getDataPointsCount()
