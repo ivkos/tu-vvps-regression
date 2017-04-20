@@ -17,13 +17,17 @@ public class GaussianMatrixSolver
             }
          }
 
-         double[] temp = matrix1[coeffIdx];
-         matrix1[coeffIdx] = matrix1[maxCoeffIdx];
-         matrix1[maxCoeffIdx] = temp;
+         //region swap
+         {
+            double[] temp = matrix1[coeffIdx];
+            matrix1[coeffIdx] = matrix1[maxCoeffIdx];
+            matrix1[maxCoeffIdx] = temp;
 
-         double temp2 = matrix2[coeffIdx];
-         matrix2[coeffIdx] = matrix2[maxCoeffIdx];
-         matrix2[maxCoeffIdx] = temp2;
+            double temp2 = matrix2[coeffIdx];
+            matrix2[coeffIdx] = matrix2[maxCoeffIdx];
+            matrix2[maxCoeffIdx] = temp2;
+         }
+         //endregion
 
          if (Math.abs(matrix1[coeffIdx][coeffIdx]) <= EPSILON) {
             throw new RuntimeException("Matrix is singular or nearly singular");
