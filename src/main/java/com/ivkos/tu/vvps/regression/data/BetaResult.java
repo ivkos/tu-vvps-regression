@@ -1,5 +1,7 @@
 package com.ivkos.tu.vvps.regression.data;
 
+import java.util.Objects;
+
 import static java.lang.System.lineSeparator;
 
 public class BetaResult
@@ -41,5 +43,23 @@ public class BetaResult
             "β₁ = " + beta1 + lineSeparator() +
             "β₂ = " + beta2 + lineSeparator() +
             "β₃ = " + beta3;
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o) return true;
+      if (!(o instanceof BetaResult)) return false;
+      BetaResult that = (BetaResult) o;
+      return Double.compare(that.beta0, beta0) == 0 &&
+            Double.compare(that.beta1, beta1) == 0 &&
+            Double.compare(that.beta2, beta2) == 0 &&
+            Double.compare(that.beta3, beta3) == 0;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Objects.hash(beta0, beta1, beta2, beta3);
    }
 }

@@ -37,4 +37,19 @@ public class Matrix
 
       return flatData[index];
    }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o) return true;
+      if (!(o instanceof Matrix)) return false;
+      Matrix matrix = (Matrix) o;
+      return Arrays.equals(data, matrix.data);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Arrays.hashCode(data);
+   }
 }

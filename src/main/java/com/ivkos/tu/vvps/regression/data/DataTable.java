@@ -3,6 +3,7 @@ package com.ivkos.tu.vvps.regression.data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Collections.unmodifiableList;
 
@@ -34,5 +35,20 @@ public class DataTable
    public int getDataPointsCount()
    {
       return this.dataPoints.size();
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o) return true;
+      if (!(o instanceof DataTable)) return false;
+      DataTable dataTable = (DataTable) o;
+      return Objects.equals(dataPoints, dataTable.dataPoints);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Objects.hash(dataPoints);
    }
 }

@@ -2,6 +2,8 @@ package com.ivkos.tu.vvps.regression.data;
 
 import com.ivkos.tu.vvps.regression.matrix.Matrix;
 
+import java.util.Objects;
+
 public class DataTableProcessor
 {
    private final DataTable data;
@@ -103,5 +105,20 @@ public class DataTableProcessor
                   getSumOfSquaredParams(y)
             }
       });
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o) return true;
+      if (!(o instanceof DataTableProcessor)) return false;
+      DataTableProcessor that = (DataTableProcessor) o;
+      return Objects.equals(data, that.data);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Objects.hash(data);
    }
 }
