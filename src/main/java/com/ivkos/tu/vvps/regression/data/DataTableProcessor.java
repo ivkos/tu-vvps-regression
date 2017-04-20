@@ -6,6 +6,7 @@ import com.ivkos.tu.vvps.regression.matrix.Matrix;
 import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 public class DataTableProcessor
 {
@@ -17,37 +18,12 @@ public class DataTableProcessor
       this.data = data;
    }
 
-   protected double getSumOfParams(DataPointCoefficientGetter coefficientGetter)
-   {
-      return data.getDataPoints().stream()
-            .map(coefficientGetter)
-            .mapToDouble(Double::doubleValue)
-            .sum();
-   }
-
-   protected double getSumOfProductsOfParams(DataPointCoefficientGetter coeff1Getter,
-                                             DataPointCoefficientGetter coeff2Getter)
-   {
-      return data.getDataPoints().stream()
-            .map(dp -> coeff1Getter.apply(dp) * coeff2Getter.apply(dp))
-            .mapToDouble(Double::doubleValue)
-            .sum();
-   }
-
-   protected double getSumOfSquaredParams(DataPointCoefficientGetter coefficientGetter)
-   {
-      return data.getDataPoints().stream()
-            .map(dp -> Math.pow(coefficientGetter.apply(dp), 2))
-            .mapToDouble(Double::doubleValue)
-            .sum();
-   }
-
    public BetaResult process()
    {
-      DataPointCoefficientGetter w = DataPoint::getW;
-      DataPointCoefficientGetter x = DataPoint::getX;
-      DataPointCoefficientGetter y = DataPoint::getY;
-      DataPointCoefficientGetter z = DataPoint::getZ;
+      Function<DataPoint, Double> w = DataPoint::getW;
+      Function<DataPoint, Double> x = DataPoint::getX;
+      Function<DataPoint, Double> y = DataPoint::getY;
+      Function<DataPoint, Double> z = DataPoint::getZ;
 
       Matrix lhs = buildLhsMatrix(w, x, y);
       Matrix rhs = buildRhsMatrix(w, x, y, z);
@@ -61,24 +37,31 @@ public class DataTableProcessor
       );
    }
 
-   protected Matrix buildRhsMatrix(DataPointCoefficientGetter w,
-                                   DataPointCoefficientGetter x,
-                                   DataPointCoefficientGetter y,
-                                   DataPointCoefficientGetter z
-   )
+   protected double getSumOfParams(Function<DataPoint, Double> coefficientGetter)
    {
-      return matrixFactory.create(new double[] {
-            getSumOfParams(z),
-            getSumOfProductsOfParams(w, z),
-            getSumOfProductsOfParams(x, z),
-            getSumOfProductsOfParams(y, z)
-      });
+      return data.getDataPoints().stream()
+            .map(coefficientGetter)
+            .mapToDouble(Double::doubleValue)
+            .sum();
    }
 
-   protected Matrix buildLhsMatrix(DataPointCoefficientGetter w,
-                                   DataPointCoefficientGetter x,
-                                   DataPointCoefficientGetter y
-   )
+   protected double getSumOfSquaredParams(Function<DataPoint, Double> coefficientGetter)
+   {
+      return getSumOfParams(coefficientGetter.andThen(d -> d * d));
+   }
+
+   protected double getSumOfProductsOfParams(Function<DataPoint, Double> coeff1Getter,
+                                             Function<DataPoint, Double> coeff2Getter)
+   {
+      return data.getDataPoints().stream()
+            .map(dp -> coeff1Getter.apply(dp) * coeff2Getter.apply(dp))
+            .mapToDouble(Double::doubleValue)
+            .sum();
+   }
+
+   protected Matrix buildLhsMatrix(Function<DataPoint, Double> w,
+                                   Function<DataPoint, Double> x,
+                                   Function<DataPoint, Double> y)
    {
       return matrixFactory.create(new double[][] {
             {
@@ -108,6 +91,19 @@ public class DataTableProcessor
                   getSumOfProductsOfParams(x, y),
                   getSumOfSquaredParams(y)
             }
+      });
+   }
+
+   protected Matrix buildRhsMatrix(Function<DataPoint, Double> w,
+                                   Function<DataPoint, Double> x,
+                                   Function<DataPoint, Double> y,
+                                   Function<DataPoint, Double> z)
+   {
+      return matrixFactory.create(new double[] {
+            getSumOfParams(z),
+            getSumOfProductsOfParams(w, z),
+            getSumOfProductsOfParams(x, z),
+            getSumOfProductsOfParams(y, z)
       });
    }
 
