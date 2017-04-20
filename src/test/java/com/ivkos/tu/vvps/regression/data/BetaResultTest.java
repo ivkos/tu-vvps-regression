@@ -3,7 +3,7 @@ package com.ivkos.tu.vvps.regression.data;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class BetaResultTest
 {
@@ -44,5 +44,26 @@ public class BetaResultTest
    public void getBeta3() throws Exception
    {
       assertEquals(BETA_3, betaResult.getBeta3(), DOUBLE_DELTA);
+   }
+
+   @Test
+   public void equalsAndHashCode() throws Exception
+   {
+      BetaResult br1 = new BetaResult(1, 2, 3, 4);
+      BetaResult br2 = new BetaResult(1, 2, 3, 4);
+      assertTrue(br1.equals(br2));
+      assertTrue(br1.hashCode() == br2.hashCode());
+
+      BetaResult br3 = new BetaResult(5, 6, 7, 8);
+      assertFalse(br1.equals(br3));
+      assertFalse(br1.hashCode() == br3.hashCode());
+   }
+
+   @Test
+   public void toAString() throws Exception
+   {
+      String str = betaResult.toString();
+      assertNotNull(str);
+      assertFalse(str.contains("@"));
    }
 }
