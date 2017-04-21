@@ -1,11 +1,14 @@
 package com.ivkos.tu.vvps.regression.data;
 
+import static java.util.Objects.requireNonNull;
+
 public class MultipleRegressionCalculator
 {
    private final BetaResult beta;
 
    public MultipleRegressionCalculator(BetaResult betaResult)
    {
+      requireNonNull(betaResult);
       this.beta = betaResult;
    }
 

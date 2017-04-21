@@ -7,6 +7,8 @@ import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
 
 import java.util.function.Function;
 
+import static java.util.Objects.requireNonNull;
+
 public class DataTableProcessor
 {
    private static final Function<DataPoint, Double> w = DataPoint::getW;
@@ -19,6 +21,7 @@ public class DataTableProcessor
 
    public DataTableProcessor(DataTable data)
    {
+      requireNonNull(data);
       this.data = data;
    }
 

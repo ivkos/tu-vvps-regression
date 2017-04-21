@@ -6,6 +6,18 @@ import static org.junit.Assert.*;
 
 public class DataTableTest
 {
+   @Test(expected = NullPointerException.class)
+   public void constructWithNull() throws Exception
+   {
+      new DataTable(null);
+   }
+
+   @Test(expected = NullPointerException.class)
+   public void constructWithNullDataPoints() throws Exception
+   {
+      new DataTable(new DataPoint(5, 6, 7, 8), null, null);
+   }
+
    @Test
    public void emptyDataTable() throws Exception
    {

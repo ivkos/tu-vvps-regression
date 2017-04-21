@@ -2,10 +2,12 @@ package com.ivkos.tu.vvps.regression.data;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableCollection;
+import static java.util.Objects.requireNonNull;
 
 public class DataTable
 {
@@ -18,7 +20,11 @@ public class DataTable
 
    public DataTable(DataPoint... dp)
    {
-      this.dataPoints = new HashSet<>(asList(dp));
+      requireNonNull(dp);
+      List<DataPoint> dataPoints = asList(dp);
+      if (dataPoints.contains(null)) throw new NullPointerException("dp must not contain null values");
+
+      this.dataPoints = new HashSet<>(dataPoints);
    }
 
    public DataTable addDataPoint(DataPoint dp)
