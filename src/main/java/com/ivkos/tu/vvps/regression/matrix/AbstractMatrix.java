@@ -6,9 +6,11 @@ import java.util.Arrays;
 
 public abstract class AbstractMatrix implements Matrix
 {
+   private static final int PRECISION = 10;
+
    protected double[] flatData;
 
-   private static boolean almostEquals(double[] a, double[] a2, int precision)
+   private static boolean almostEquals(double[] a, double[] a2)
    {
       if (a == a2)
          return true;
@@ -20,7 +22,7 @@ public abstract class AbstractMatrix implements Matrix
          return false;
 
       for (int i = 0; i < length; i++)
-         if (Math.abs(a[i] - a2[i]) > Math.pow(10, -precision))
+         if (Math.abs(a[i] - a2[i]) > Math.pow(10, -PRECISION))
             return false;
 
       return true;
@@ -42,7 +44,7 @@ public abstract class AbstractMatrix implements Matrix
    {
       // reduce precision
       double[] truncated = Arrays.stream(this.getFlatData())
-            .map(d -> BigDecimal.valueOf(d).setScale(10, RoundingMode.HALF_UP).doubleValue())
+            .map(d -> BigDecimal.valueOf(d).setScale(PRECISION, RoundingMode.HALF_UP).doubleValue())
             .toArray();
 
       return Arrays.hashCode(truncated);
@@ -55,6 +57,6 @@ public abstract class AbstractMatrix implements Matrix
       if (!(o instanceof AbstractMatrix)) return false;
 
       AbstractMatrix that = (AbstractMatrix) o;
-      return almostEquals(this.getFlatData(), that.getFlatData(), 10);
+      return almostEquals(this.getFlatData(), that.getFlatData());
    }
 }
