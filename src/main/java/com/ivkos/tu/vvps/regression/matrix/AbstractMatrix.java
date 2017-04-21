@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public abstract class AbstractMatrix implements Matrix
 {
-   private static final int PRECISION = 10;
+   public static final int PRECISION = 10;
 
    protected double[] flatData;
 

@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 public class MatrixTest
 {
+   private static final double PRECISION = Math.pow(10, -AbstractMatrix.PRECISION);
+
    private static double[][] ARR_2D = {
          { 9, 3, 4 },
          { 4, 3, 4 },
@@ -62,7 +64,7 @@ public class MatrixTest
    public void get() throws Exception
    {
       Matrix matrix = matrixFactory.create(ARR_RESULT);
-      assertEquals(4, matrix.get(1), 1e-10);
+      assertEquals(4, matrix.get(1), PRECISION);
    }
 
    @Test
