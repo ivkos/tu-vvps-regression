@@ -9,7 +9,7 @@ public class MultipleRegressionCalculator
       this.beta = betaResult;
    }
 
-   public double calculate(double wk, double xk, double yk)
+   public double calculateZk(double wk, double xk, double yk)
    {
       return beta.getBeta0() +
             wk * beta.getBeta1() +
