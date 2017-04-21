@@ -16,7 +16,7 @@ public class MultipleRegressionCalculator
    {
       return beta.getBeta0() +
             wk * beta.getBeta1() +
-            xk + beta.getBeta2() +
-            yk + beta.getBeta3();
+            xk * beta.getBeta2() +
+            yk * beta.getBeta3();
    }
 }
