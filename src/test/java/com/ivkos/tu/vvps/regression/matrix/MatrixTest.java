@@ -3,6 +3,7 @@ package com.ivkos.tu.vvps.regression.matrix;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.ivkos.tu.vvps.regression.matrix.AbstractMatrix.almostEquals;
 import static org.junit.Assert.*;
 
 public class MatrixTest
@@ -75,5 +76,21 @@ public class MatrixTest
 
       assertTrue(mx1.equals(mx2));
       assertTrue(mx1.hashCode() == mx2.hashCode());
+   }
+
+   @Test
+   public void almostEquality() throws Exception
+   {
+      double[] d1 = new double[] { };
+      assertTrue(almostEquals(d1, d1));
+
+      assertFalse(almostEquals(d1, null));
+
+      double[] d2 = new double[] { 1 };
+      double[] d3 = new double[] { 1, 2 };
+      assertFalse(almostEquals(d2, d3));
+
+      double[] d5 = new double[] { 1.2 };
+      assertFalse(almostEquals(d2, d5));
    }
 }

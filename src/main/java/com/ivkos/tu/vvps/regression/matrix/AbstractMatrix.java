@@ -10,7 +10,7 @@ public abstract class AbstractMatrix implements Matrix
 
    protected double[] flatData;
 
-   private static boolean almostEquals(double[] a, double[] a2)
+   protected static boolean almostEquals(double[] a, double[] a2)
    {
       if (a == a2)
          return true;
