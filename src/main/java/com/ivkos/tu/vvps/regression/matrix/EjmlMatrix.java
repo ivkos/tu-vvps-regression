@@ -2,6 +2,8 @@ package com.ivkos.tu.vvps.regression.matrix;
 
 import org.ejml.simple.SimpleMatrix;
 
+import static java.util.Objects.requireNonNull;
+
 public class EjmlMatrix extends AbstractMatrix
 {
    private final double[][] data;
@@ -9,6 +11,8 @@ public class EjmlMatrix extends AbstractMatrix
 
    public EjmlMatrix(double[][] data)
    {
+      requireNonNull(data, "data must not be null");
+
       this.data = data;
       this.matrix = new SimpleMatrix(this.data);
    }
@@ -20,6 +24,8 @@ public class EjmlMatrix extends AbstractMatrix
 
    public EjmlMatrix(SimpleMatrix simpleMatrix)
    {
+      requireNonNull("simpleMatrix must not be null");
+
       this.matrix = simpleMatrix;
 
       int rows = simpleMatrix.numRows();
@@ -42,6 +48,8 @@ public class EjmlMatrix extends AbstractMatrix
    @Override
    public Matrix solve(Matrix other)
    {
+      requireNonNull(other, "other matrix must not be null");
+
       SimpleMatrix otherSimple = new SimpleMatrix(other.getData());
       SimpleMatrix solution = this.matrix.solve(otherSimple);
 

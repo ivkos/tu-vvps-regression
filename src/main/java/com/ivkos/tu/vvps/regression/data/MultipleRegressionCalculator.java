@@ -8,7 +8,7 @@ public class MultipleRegressionCalculator
 
    public MultipleRegressionCalculator(BetaResult betaResult)
    {
-      requireNonNull(betaResult);
+      requireNonNull(betaResult, "betaResult must not be null");
       this.beta = betaResult;
    }
 

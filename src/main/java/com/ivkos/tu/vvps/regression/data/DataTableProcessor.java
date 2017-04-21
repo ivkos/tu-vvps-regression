@@ -19,10 +19,10 @@ public class DataTableProcessor
    private final DataTable data;
    private final AbstractMatrixFactory matrixFactory = new MatrixFactory();
 
-   public DataTableProcessor(DataTable data)
+   public DataTableProcessor(DataTable dataTable)
    {
-      requireNonNull(data);
-      this.data = data;
+      requireNonNull(dataTable, "dataTable must not be null");
+      this.data = dataTable;
    }
 
    public BetaResult process()

@@ -18,13 +18,13 @@ public class DataTable
       this.dataPoints = new HashSet<>();
    }
 
-   public DataTable(DataPoint... dp)
+   public DataTable(DataPoint... dataPoints)
    {
-      requireNonNull(dp);
-      List<DataPoint> dataPoints = asList(dp);
-      if (dataPoints.contains(null)) throw new NullPointerException("dp must not contain null values");
+      requireNonNull(dataPoints, "dataPoints must not be null");
+      List<DataPoint> dataPointsList = asList(dataPoints);
+      if (dataPointsList.contains(null)) throw new NullPointerException("dataPoints must not contain null values");
 
-      this.dataPoints = new HashSet<>(dataPoints);
+      this.dataPoints = new HashSet<>(dataPointsList);
    }
 
    public DataTable addDataPoint(DataPoint dp)
