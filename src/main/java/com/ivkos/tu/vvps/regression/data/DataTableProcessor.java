@@ -10,6 +10,11 @@ import java.util.function.Function;
 
 public class DataTableProcessor
 {
+   private static final Function<DataPoint, Double> w = DataPoint::getW;
+   private static final Function<DataPoint, Double> x = DataPoint::getX;
+   private static final Function<DataPoint, Double> y = DataPoint::getY;
+   private static final Function<DataPoint, Double> z = DataPoint::getZ;
+
    private final DataTable data;
    private final AbstractMatrixFactory matrixFactory = new MatrixFactory();
 
@@ -20,13 +25,8 @@ public class DataTableProcessor
 
    public BetaResult process()
    {
-      Function<DataPoint, Double> w = DataPoint::getW;
-      Function<DataPoint, Double> x = DataPoint::getX;
-      Function<DataPoint, Double> y = DataPoint::getY;
-      Function<DataPoint, Double> z = DataPoint::getZ;
-
-      Matrix lhs = buildLhsMatrix(w, x, y);
-      Matrix rhs = buildRhsMatrix(w, x, y, z);
+      Matrix lhs = buildLhsMatrix();
+      Matrix rhs = buildRhsMatrix();
       Matrix solution = lhs.solve(rhs);
 
       return new BetaResult(
@@ -59,9 +59,7 @@ public class DataTableProcessor
             .sum();
    }
 
-   protected Matrix buildLhsMatrix(Function<DataPoint, Double> w,
-                                   Function<DataPoint, Double> x,
-                                   Function<DataPoint, Double> y)
+   protected Matrix buildLhsMatrix()
    {
       return matrixFactory.create(new double[][] {
             {
@@ -94,10 +92,7 @@ public class DataTableProcessor
       });
    }
 
-   protected Matrix buildRhsMatrix(Function<DataPoint, Double> w,
-                                   Function<DataPoint, Double> x,
-                                   Function<DataPoint, Double> y,
-                                   Function<DataPoint, Double> z)
+   protected Matrix buildRhsMatrix()
    {
       return matrixFactory.create(new double[] {
             getSumOfParams(z),
