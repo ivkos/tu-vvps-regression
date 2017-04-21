@@ -5,7 +5,6 @@ import com.ivkos.tu.vvps.regression.matrix.AbstractMatrixFactory;
 import com.ivkos.tu.vvps.regression.matrix.Matrix;
 import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 public class DataTableProcessor
@@ -100,20 +99,5 @@ public class DataTableProcessor
             getSumOfProductsOfParams(x, z),
             getSumOfProductsOfParams(y, z)
       });
-   }
-
-   @Override
-   public boolean equals(Object o)
-   {
-      if (this == o) return true;
-      if (!(o instanceof DataTableProcessor)) return false;
-      DataTableProcessor that = (DataTableProcessor) o;
-      return Objects.equals(data, that.data);
-   }
-
-   @Override
-   public int hashCode()
-   {
-      return Objects.hash(data);
    }
 }
