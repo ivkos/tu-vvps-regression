@@ -1,5 +1,9 @@
-package com.ivkos.tu.vvps.regression.data;
+package com.ivkos.tu.vvps.regression;
 
+import com.ivkos.tu.vvps.regression.data.BetaResult;
+import com.ivkos.tu.vvps.regression.data.DataPoint;
+import com.ivkos.tu.vvps.regression.data.DataTable;
+import com.ivkos.tu.vvps.regression.data.DataTableProcessor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
