@@ -45,25 +45,16 @@ public class DataTableProcessorTest
    @Test
    public void getSumOfParams() throws Exception
    {
-      assertEquals(4863, processor.getSumOfParams(DataPoint::getW), PRECISION);
-      assertEquals(8761, processor.getSumOfParams(DataPoint::getX), PRECISION);
-      assertEquals(654, processor.getSumOfParams(DataPoint::getY), PRECISION);
-      assertEquals(714, processor.getSumOfParams(DataPoint::getZ), PRECISION);
-   }
-
-   @Test
-   public void getSumOfSquaredParams() throws Exception
-   {
-      assertEquals(4521899, processor.getSumOfSquaredParams(DataPoint::getW), PRECISION);
-      assertEquals(2.1022091E7, processor.getSumOfSquaredParams(DataPoint::getX), PRECISION);
-      assertEquals(137902, processor.getSumOfSquaredParams(DataPoint::getY), PRECISION);
-      assertEquals(101930, processor.getSumOfSquaredParams(DataPoint::getZ), PRECISION);
+      assertEquals(4863, processor.getSumOfCoefficients(DataPoint::getW), PRECISION);
+      assertEquals(8761, processor.getSumOfCoefficients(DataPoint::getX), PRECISION);
+      assertEquals(654, processor.getSumOfCoefficients(DataPoint::getY), PRECISION);
+      assertEquals(714, processor.getSumOfCoefficients(DataPoint::getZ), PRECISION);
    }
 
    @Test
    public void getSumOfProductsOfParams() throws Exception
    {
-      assertEquals(8519938, processor.getSumOfProductsOfParams(DataPoint::getW, DataPoint::getX), PRECISION);
+      assertEquals(8519938, processor.getSumOfProductsOfCoefficients(DataPoint::getW, DataPoint::getX), PRECISION);
    }
 
    @Test
