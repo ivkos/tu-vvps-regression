@@ -35,11 +35,13 @@ public class DataTableProcessor
    }
 
    /**
-    * Processes the data points and returns a result
+    * Processes the data points and returns a result containing beta coefficients
     *
     * @return the result
+    *
+    * @throws ArithmeticException if the matrices based on the input data cannot be solved
     */
-   public BetaResult process()
+   public BetaResult process() throws ArithmeticException
    {
       Matrix A = buildLhsMatrix();
       Matrix b = buildRhsMatrix();
