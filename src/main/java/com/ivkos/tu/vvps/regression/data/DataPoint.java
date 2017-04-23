@@ -7,7 +7,8 @@ public class DataPoint
    // coefficients
    private final double w, x, y, z;
 
-   public DataPoint(double w, double x, double y, double z) {
+   public DataPoint(double w, double x, double y, double z)
+   {
       this.w = w;
       this.x = x;
       this.y = y;
