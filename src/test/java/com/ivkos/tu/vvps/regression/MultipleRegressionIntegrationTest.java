@@ -55,4 +55,21 @@ public class MultipleRegressionIntegrationTest
       assertEquals(0.0150, result.getBeta2(), precision);
       assertEquals(0.2461, result.getBeta3(), precision);
    }
+
+   @Test(expected = ArithmeticException.class)
+   public void invalidData() throws Exception
+   {
+      DataPoint[] dataPoints = {
+            new DataPoint(1, 2, 3, 4),
+            new DataPoint(5, 6, 7, 8), // wow
+            new DataPoint(9, 10, 11, 12),
+            new DataPoint(13, 14, 15, 16)
+      };
+
+      DataTable data = new DataTable(dataPoints);
+      DataTableProcessor processor = new DataTableProcessor(data);
+
+      // will fail here
+      processor.process();
+   }
 }

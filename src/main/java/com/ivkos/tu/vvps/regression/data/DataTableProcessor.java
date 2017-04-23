@@ -4,6 +4,7 @@ package com.ivkos.tu.vvps.regression.data;
 import com.ivkos.tu.vvps.regression.matrix.AbstractMatrixFactory;
 import com.ivkos.tu.vvps.regression.matrix.Matrix;
 import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
+import org.ejml.factory.SingularMatrixException;
 
 import java.util.function.Function;
 
@@ -29,7 +30,13 @@ public class DataTableProcessor
    {
       Matrix A = buildLhsMatrix();
       Matrix b = buildRhsMatrix();
-      Matrix solution = A.solve(b);
+
+      Matrix solution;
+      try {
+         solution = A.solve(b);
+      } catch (SingularMatrixException e) {
+         throw new ArithmeticException("Matrix is singular");
+      }
 
       return new BetaResult(
             solution.get(0),
