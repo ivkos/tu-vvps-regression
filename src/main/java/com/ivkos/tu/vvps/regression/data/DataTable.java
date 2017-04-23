@@ -42,6 +42,7 @@ public class DataTable
     * Adds a data point to the DataTable
     *
     * @param dp the data point
+    *
     * @return the current DataTable instance
     */
    public DataTable addDataPoint(DataPoint dp)

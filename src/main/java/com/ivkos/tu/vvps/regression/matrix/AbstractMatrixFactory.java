@@ -6,6 +6,7 @@ public interface AbstractMatrixFactory
     * Creates a matrix
     *
     * @param data the data in the matrix
+    *
     * @return a matrix
     */
    Matrix create(double[][] data);
@@ -14,6 +15,7 @@ public interface AbstractMatrixFactory
     * Creates a matrix
     *
     * @param data the data in the matrix
+    *
     * @return a matrix
     */
    Matrix create(double[] data);

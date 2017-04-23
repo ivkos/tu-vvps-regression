@@ -13,9 +13,10 @@ public abstract class AbstractMatrix implements Matrix
    /**
     * Checks whether the specified matrices (represented by double arrays) are almost equal within a precision range
     *
-    * @param a
-    * @param a2
-    * @return
+    * @param a  first matrix
+    * @param a2 second matrix
+    *
+    * @return true if almost equal, otherwise false
     */
    protected static boolean almostEquals(double[] a, double[] a2)
    {
@@ -37,6 +38,7 @@ public abstract class AbstractMatrix implements Matrix
 
    /**
     * Returns the internal data flattened
+    *
     * @return a flat array of the internal data
     */
    protected double[] getFlatData()
