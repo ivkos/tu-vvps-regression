@@ -41,6 +41,8 @@ public class DataTableProcessor
 
    protected double getSumOfCoefficients(Function<DataPoint, Double> coefficientGetter)
    {
+      requireNonNull(coefficientGetter, "coefficientGetter must not be null");
+
       return data.getDataPoints().stream()
             .map(coefficientGetter)
             .mapToDouble(Double::doubleValue)
@@ -50,6 +52,9 @@ public class DataTableProcessor
    protected double getSumOfProductsOfCoefficients(Function<DataPoint, Double> coefficient1Getter,
                                                    Function<DataPoint, Double> coefficient2Getter)
    {
+      requireNonNull(coefficient1Getter, "coefficient1Getter must not be null");
+      requireNonNull(coefficient2Getter, "coefficient2Getter must not be null");
+
       return data.getDataPoints().stream()
             .map(dp -> coefficient1Getter.apply(dp) * coefficient2Getter.apply(dp))
             .mapToDouble(Double::doubleValue)

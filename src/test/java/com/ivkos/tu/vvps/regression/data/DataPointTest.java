@@ -3,9 +3,7 @@ package com.ivkos.tu.vvps.regression.data;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DataPointTest
 {
@@ -52,7 +50,7 @@ public class DataPointTest
    public void equalsAndHashCode() throws Exception
    {
       DataPoint dp1 = new DataPoint(1, 2, 3, 4);
-      DataPoint dp2 = new DataPoint(1,2,3,4);
+      DataPoint dp2 = new DataPoint(1, 2, 3, 4);
       assertTrue(dp1.equals(dp2));
       assertTrue(dp1.hashCode() == dp2.hashCode());
 

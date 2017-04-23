@@ -42,8 +42,26 @@ public class DataTableProcessorTest
       assertNotNull(process);
    }
 
+   @Test(expected = NullPointerException.class)
+   public void getSumOfCoefficientsWithNullGetter() throws Exception
+   {
+      processor.getSumOfCoefficients(null);
+   }
+
+   @Test(expected = NullPointerException.class)
+   public void getSumOfProductsOfCoefficientsWithNullParam1() throws Exception
+   {
+      processor.getSumOfProductsOfCoefficients(null, DataPoint::getX);
+   }
+
+   @Test(expected = NullPointerException.class)
+   public void getSumOfProductsOfCoefficientsWithNullParam2() throws Exception
+   {
+      processor.getSumOfProductsOfCoefficients(DataPoint::getX, null);
+   }
+
    @Test
-   public void getSumOfParams() throws Exception
+   public void getSumOfCoefficients() throws Exception
    {
       assertEquals(4863, processor.getSumOfCoefficients(DataPoint::getW), PRECISION);
       assertEquals(8761, processor.getSumOfCoefficients(DataPoint::getX), PRECISION);
@@ -52,7 +70,7 @@ public class DataTableProcessorTest
    }
 
    @Test
-   public void getSumOfProductsOfParams() throws Exception
+   public void getSumOfProductsOfCoefficients() throws Exception
    {
       assertEquals(8519938, processor.getSumOfProductsOfCoefficients(DataPoint::getW, DataPoint::getX), PRECISION);
    }
