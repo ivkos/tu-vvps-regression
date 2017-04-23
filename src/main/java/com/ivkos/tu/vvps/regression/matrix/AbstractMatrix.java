@@ -10,6 +10,13 @@ public abstract class AbstractMatrix implements Matrix
 
    protected double[] flatData;
 
+   /**
+    * Checks whether the specified matrices (represented by double arrays) are almost equal within a precision range
+    *
+    * @param a
+    * @param a2
+    * @return
+    */
    protected static boolean almostEquals(double[] a, double[] a2)
    {
       if (a == a2)
@@ -28,6 +35,10 @@ public abstract class AbstractMatrix implements Matrix
       return true;
    }
 
+   /**
+    * Returns the internal data flattened
+    * @return a flat array of the internal data
+    */
    protected double[] getFlatData()
    {
       if (this.flatData != null) return this.flatData;

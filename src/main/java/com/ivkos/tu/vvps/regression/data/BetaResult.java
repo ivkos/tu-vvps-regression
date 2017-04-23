@@ -4,6 +4,9 @@ import java.util.Objects;
 
 import static java.lang.System.lineSeparator;
 
+/**
+ * Represents the result of the multiple regression
+ */
 public class BetaResult
 {
    private final double beta0, beta1, beta2, beta3;

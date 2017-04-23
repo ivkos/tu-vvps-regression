@@ -10,6 +10,9 @@ import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a processor that processes data points in a data table
+ */
 public class DataTableProcessor
 {
    private static final Function<DataPoint, Double> w = DataPoint::getW;
@@ -20,12 +23,21 @@ public class DataTableProcessor
    private final DataTable data;
    private final AbstractMatrixFactory matrixFactory = new MatrixFactory();
 
+   /**
+    * Creates an instance of DataTableProcessor that processes the specified dataTable
+    * @param dataTable the data table to process
+    */
    public DataTableProcessor(DataTable dataTable)
    {
       requireNonNull(dataTable, "dataTable must not be null");
       this.data = dataTable;
    }
 
+   /**
+    * Processes the data points and returns a result
+    *
+    * @return the result
+    */
    public BetaResult process()
    {
       Matrix A = buildLhsMatrix();

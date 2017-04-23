@@ -2,6 +2,9 @@ package com.ivkos.tu.vvps.regression.data;
 
 import java.util.Objects;
 
+/**
+ * Represents a data point used to calculate the multiple regression
+ */
 public class DataPoint
 {
    // coefficients
