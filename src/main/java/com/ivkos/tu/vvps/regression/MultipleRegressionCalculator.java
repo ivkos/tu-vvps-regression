@@ -1,4 +1,6 @@
-package com.ivkos.tu.vvps.regression.data;
+package com.ivkos.tu.vvps.regression;
+
+import com.ivkos.tu.vvps.regression.data.BetaResult;
 
 import static java.util.Objects.requireNonNull;
 
