@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 public class MultipleRegressionIntegrationTest
 {
+   private static final double PRECISION = 1e-4;
+
    @Test
    public void table1TestCase() throws Exception
    {
@@ -26,11 +28,10 @@ public class MultipleRegressionIntegrationTest
       DataTableProcessor processor = new DataTableProcessor(data);
       BetaResult result = processor.process();
 
-      final double precision = 1e-5;
-      assertEquals(0.56645, result.getBeta0(), precision);
-      assertEquals(0.06533, result.getBeta1(), precision);
-      assertEquals(0.008719, result.getBeta2(), precision);
-      assertEquals(0.15105, result.getBeta3(), precision);
+      assertEquals(0.56645, result.getBeta0(), PRECISION);
+      assertEquals(0.06533, result.getBeta1(), PRECISION);
+      assertEquals(0.008719, result.getBeta2(), PRECISION);
+      assertEquals(0.15105, result.getBeta3(), PRECISION);
    }
 
    @Test
@@ -49,11 +50,10 @@ public class MultipleRegressionIntegrationTest
       DataTableProcessor processor = new DataTableProcessor(data);
       BetaResult result = processor.process();
 
-      final double precision = 1e-4;
-      assertEquals(6.7013, result.getBeta0(), precision);
-      assertEquals(0.0784, result.getBeta1(), precision);
-      assertEquals(0.0150, result.getBeta2(), precision);
-      assertEquals(0.2461, result.getBeta3(), precision);
+      assertEquals(6.7013, result.getBeta0(), PRECISION);
+      assertEquals(0.0784, result.getBeta1(), PRECISION);
+      assertEquals(0.0150, result.getBeta2(), PRECISION);
+      assertEquals(0.2461, result.getBeta3(), PRECISION);
    }
 
    @Test(expected = ArithmeticException.class)

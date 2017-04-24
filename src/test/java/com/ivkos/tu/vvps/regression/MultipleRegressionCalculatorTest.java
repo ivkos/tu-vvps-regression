@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNotNull;
 
 public class MultipleRegressionCalculatorTest
 {
+   private static final double PRECISION = 1e-1;
+
    @Test
    public void construct() throws Exception
    {
@@ -28,7 +30,7 @@ public class MultipleRegressionCalculatorTest
       MultipleRegressionCalculator calculator = new MultipleRegressionCalculator(betas);
 
       double zk = calculator.calculateZk(2, 3, 4);
-      assertEquals(70, zk, 1e-1);
+      assertEquals(70, zk, PRECISION);
    }
 
 }
