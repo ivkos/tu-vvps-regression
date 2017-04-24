@@ -4,7 +4,6 @@ package com.ivkos.tu.vvps.regression.data;
 import com.ivkos.tu.vvps.regression.matrix.AbstractMatrixFactory;
 import com.ivkos.tu.vvps.regression.matrix.Matrix;
 import com.ivkos.tu.vvps.regression.matrix.MatrixFactory;
-import org.ejml.factory.SingularMatrixException;
 
 import java.util.function.Function;
 
@@ -15,10 +14,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class DataTableProcessor
 {
-   private static final Function<DataPoint, Double> w = DataPoint::getW;
-   private static final Function<DataPoint, Double> x = DataPoint::getX;
-   private static final Function<DataPoint, Double> y = DataPoint::getY;
-   private static final Function<DataPoint, Double> z = DataPoint::getZ;
+   private static final Function<DataPoint, Double> W = DataPoint::getW;
+   private static final Function<DataPoint, Double> X = DataPoint::getX;
+   private static final Function<DataPoint, Double> Y = DataPoint::getY;
+   private static final Function<DataPoint, Double> Z = DataPoint::getZ;
 
    private final DataTable data;
    private final AbstractMatrixFactory matrixFactory = new MatrixFactory();
@@ -83,30 +82,30 @@ public class DataTableProcessor
       return matrixFactory.create(new double[][] {
             {
                   data.getDataPointsCount(),
-                  getSumOfCoefficients(w),
-                  getSumOfCoefficients(x),
-                  getSumOfCoefficients(y)
+                  getSumOfCoefficients(W),
+                  getSumOfCoefficients(X),
+                  getSumOfCoefficients(Y)
             },
 
             {
-                  getSumOfCoefficients(w),
-                  getSumOfProductsOfCoefficients(w, w),
-                  getSumOfProductsOfCoefficients(w, x),
-                  getSumOfProductsOfCoefficients(w, y)
+                  getSumOfCoefficients(W),
+                  getSumOfProductsOfCoefficients(W, W),
+                  getSumOfProductsOfCoefficients(W, X),
+                  getSumOfProductsOfCoefficients(W, Y)
             },
 
             {
-                  getSumOfCoefficients(x),
-                  getSumOfProductsOfCoefficients(w, x),
-                  getSumOfProductsOfCoefficients(x, x),
-                  getSumOfProductsOfCoefficients(x, y)
+                  getSumOfCoefficients(X),
+                  getSumOfProductsOfCoefficients(W, X),
+                  getSumOfProductsOfCoefficients(X, X),
+                  getSumOfProductsOfCoefficients(X, Y)
             },
 
             {
-                  getSumOfCoefficients(y),
-                  getSumOfProductsOfCoefficients(w, y),
-                  getSumOfProductsOfCoefficients(x, y),
-                  getSumOfProductsOfCoefficients(y, y)
+                  getSumOfCoefficients(Y),
+                  getSumOfProductsOfCoefficients(W, Y),
+                  getSumOfProductsOfCoefficients(X, Y),
+                  getSumOfProductsOfCoefficients(Y, Y)
             }
       });
    }
@@ -114,10 +113,10 @@ public class DataTableProcessor
    protected Matrix buildRhsMatrix()
    {
       return matrixFactory.create(new double[] {
-            getSumOfCoefficients(z),
-            getSumOfProductsOfCoefficients(w, z),
-            getSumOfProductsOfCoefficients(x, z),
-            getSumOfProductsOfCoefficients(y, z)
+            getSumOfCoefficients(Z),
+            getSumOfProductsOfCoefficients(W, Z),
+            getSumOfProductsOfCoefficients(X, Z),
+            getSumOfProductsOfCoefficients(Y, Z)
       });
    }
 }
