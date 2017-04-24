@@ -1,5 +1,6 @@
 package com.ivkos.tu.vvps.regression.matrix;
 
+import com.ivkos.tu.vvps.regression.matrix.exceptions.IllegalMatrixOperationException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,7 +62,7 @@ public class MatrixTest
       assertTrue(expected.hashCode() == solution.hashCode());
    }
 
-   @Test(expected = IllegalArgumentException.class)
+   @Test(expected = IllegalMatrixOperationException.class)
    public void solveWithIncompatibleMatrices() throws Exception
    {
       Matrix m1 = matrixFactory.create(new double[][] {

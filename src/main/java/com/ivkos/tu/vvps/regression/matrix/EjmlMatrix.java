@@ -1,5 +1,7 @@
 package com.ivkos.tu.vvps.regression.matrix;
 
+import com.ivkos.tu.vvps.regression.matrix.exceptions.IllegalMatrixOperationException;
+import com.ivkos.tu.vvps.regression.matrix.exceptions.SingularMatrixException;
 import org.ejml.simple.SimpleMatrix;
 
 import static java.util.Objects.requireNonNull;
@@ -46,12 +48,20 @@ public class EjmlMatrix extends AbstractMatrix
    }
 
    @Override
-   public Matrix solve(Matrix other)
+   public Matrix solve(Matrix other) throws IllegalMatrixOperationException
    {
       requireNonNull(other, "other matrix must not be null");
 
       SimpleMatrix otherSimple = new SimpleMatrix(other.getData());
-      SimpleMatrix solution = this.matrix.solve(otherSimple);
+
+      SimpleMatrix solution;
+      try {
+         solution = this.matrix.solve(otherSimple);
+      } catch (IllegalArgumentException e) {
+         throw new IllegalMatrixOperationException("Illegal operation. Matrices are with incompatible sizes.", e);
+      } catch (org.ejml.factory.SingularMatrixException e) {
+         throw new SingularMatrixException("The resulting matrix is singular", e);
+      }
 
       return new EjmlMatrix(solution);
    }

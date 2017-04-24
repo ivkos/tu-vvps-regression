@@ -4,6 +4,7 @@ import com.ivkos.tu.vvps.regression.data.BetaResult;
 import com.ivkos.tu.vvps.regression.data.DataPoint;
 import com.ivkos.tu.vvps.regression.data.DataTable;
 import com.ivkos.tu.vvps.regression.data.DataTableProcessor;
+import com.ivkos.tu.vvps.regression.matrix.exceptions.SingularMatrixException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -56,7 +57,7 @@ public class MultipleRegressionIntegrationTest
       assertEquals(0.2461, result.getBeta3(), PRECISION);
    }
 
-   @Test(expected = ArithmeticException.class)
+   @Test(expected = SingularMatrixException.class)
    public void invalidData() throws Exception
    {
       DataPoint[] dataPoints = {
