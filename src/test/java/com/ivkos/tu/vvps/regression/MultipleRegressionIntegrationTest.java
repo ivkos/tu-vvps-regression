@@ -61,7 +61,7 @@ public class MultipleRegressionIntegrationTest
    {
       DataPoint[] dataPoints = {
             new DataPoint(1, 2, 3, 4),
-            new DataPoint(5, 6, 7, 8), // wow
+            new DataPoint(5, 6, 7, 8),
             new DataPoint(9, 10, 11, 12),
             new DataPoint(13, 14, 15, 16)
       };
