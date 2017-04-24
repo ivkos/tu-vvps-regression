@@ -13,12 +13,13 @@ public abstract class AbstractMatrix implements Matrix
    /**
     * Checks whether the specified matrices (represented by double arrays) are almost equal within a precision range
     *
-    * @param a first matrix
-    * @param b second matrix
+    * @param a         first matrix
+    * @param b         second matrix
+    * @param precision how many digits after the decimal point to compare
     *
     * @return true if almost equal, otherwise false
     */
-   protected static boolean areArraysAlmostEqual(double[] a, double[] b)
+   protected static boolean areArraysAlmostEqual(double[] a, double[] b, int precision)
    {
       if (a == b) {
          return true;
@@ -34,7 +35,7 @@ public abstract class AbstractMatrix implements Matrix
       }
 
       for (int i = 0; i < length; i++) {
-         if (Math.abs(a[i] - b[i]) > Math.pow(10, -PRECISION)) {
+         if (Math.abs(a[i] - b[i]) > Math.pow(10, -precision)) {
             return false;
          }
       }
@@ -76,6 +77,6 @@ public abstract class AbstractMatrix implements Matrix
       if (!(o instanceof AbstractMatrix)) return false;
 
       AbstractMatrix that = (AbstractMatrix) o;
-      return areArraysAlmostEqual(this.getFlatData(), that.getFlatData());
+      return areArraysAlmostEqual(this.getFlatData(), that.getFlatData(), PRECISION);
    }
 }

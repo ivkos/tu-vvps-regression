@@ -82,15 +82,15 @@ public class MatrixTest
    public void almostEquality() throws Exception
    {
       double[] d1 = new double[] { };
-      assertTrue(areArraysAlmostEqual(d1, d1));
+      assertTrue(areArraysAlmostEqual(d1, d1, AbstractMatrix.PRECISION));
 
-      assertFalse(areArraysAlmostEqual(d1, null));
+      assertFalse(areArraysAlmostEqual(d1, null, AbstractMatrix.PRECISION));
 
       double[] d2 = new double[] { 1 };
       double[] d3 = new double[] { 1, 2 };
-      assertFalse(areArraysAlmostEqual(d2, d3));
+      assertFalse(areArraysAlmostEqual(d2, d3, AbstractMatrix.PRECISION));
 
       double[] d5 = new double[] { 1.2 };
-      assertFalse(areArraysAlmostEqual(d2, d5));
+      assertFalse(areArraysAlmostEqual(d2, d5, AbstractMatrix.PRECISION));
    }
 }
