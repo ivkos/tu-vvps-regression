@@ -46,12 +46,7 @@ public class DataTableProcessor
       Matrix A = buildLhsMatrix();
       Matrix b = buildRhsMatrix();
 
-      Matrix solution;
-      try {
-         solution = A.solve(b);
-      } catch (SingularMatrixException e) {
-         throw new ArithmeticException("Matrix is singular");
-      }
+      Matrix solution = A.solve(b);
 
       return new BetaResult(
             solution.get(0),
