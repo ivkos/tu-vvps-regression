@@ -61,6 +61,21 @@ public class MatrixTest
       assertTrue(expected.hashCode() == solution.hashCode());
    }
 
+   @Test(expected = IllegalArgumentException.class)
+   public void solveWithIncompatibleMatrices() throws Exception
+   {
+      Matrix m1 = matrixFactory.create(new double[][] {
+            { 1, 2, 3, 4, 5, 6 },
+            { 7, 8, 9, 10, 11, 12 }
+      });
+
+      Matrix m2 = matrixFactory.create(new double[] {
+            1, 2, 3
+      });
+
+      m1.solve(m2);
+   }
+
    @Test
    public void get() throws Exception
    {
